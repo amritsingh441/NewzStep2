@@ -31,23 +31,22 @@ public class ApplicationContextConfig {
 	 */
 	@Bean
 	public DataSource getDataSource() {
-		BasicDataSource ds = new BasicDataSource();
-		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://localhost:3306/newsdb");
-		ds.setUsername("root");
-		ds.setPassword("root");
-		return ds;
+		BasicDataSource dataSource = new BasicDataSource();
+		
+		/*
+		 * ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		 * ds.setUrl("jdbc:mysql://localhost:3306/newsdb"); ds.setUsername("root");
+		 * ds.setPassword("root");
+		 */
+		
+        //Use this configuration while submitting solution in hobbes.
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://" + System.getenv("MYSQL_HOST") + ":3306/" + System.getenv("MYSQL_DATABASE")
+				+"?verifyServerCertificate=false&useSSL=false&requireSSL=false");
+		dataSource.setUsername(System.getenv("MYSQL_USER"));
+		dataSource.setPassword(System.getenv("MYSQL_PASSWORD")); 
+		return dataSource;
 	}
-
-	
-//        Use this configuration while submitting solution in hobbes.
-//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//		dataSource.setUrl("jdbc:mysql://" + System.getenv("MYSQL_HOST") + ":3306/" + System.getenv("MYSQL_DATABASE")
-//				+"?verifyServerCertificate=false&useSSL=false&requireSSL=false");
-//		dataSource.setUsername(System.getenv("MYSQL_USER"));
-//		dataSource.setPassword(System.getenv("MYSQL_PASSWORD")); 
-
-
 	/*
 	 * Define the bean for SessionFactory. Hibernate SessionFactory is the factory
 	 * class through which we get sessions and perform database operations.

@@ -33,7 +33,7 @@ function hideAddNewsForm(newsId){
 
 <h2> News Application</h2>
 
-<form id="saveNewsForm" name=form method=POST action="saveData" modelAttribute="news">  
+<form id="saveNewsForm" name=form method=POST action="add" modelAttribute="news">  
  
     <div class="form-group">  
       <label class="control-label col-sm-2" for="title">News Name :</label>  

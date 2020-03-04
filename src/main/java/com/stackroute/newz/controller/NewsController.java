@@ -61,15 +61,12 @@ public class NewsController {
 	 * news, it should show the same along with existing news items. Hence, this handler
 	 * method should redirect to the default URL i.e. "/".
 	 */
-	@PostMapping("/saveData")
+	@PostMapping("/add")
 	public String addNews(@ModelAttribute("news") News news, ModelMap mp) {
 		newsDao.addNews(news);
-		//mp.addAttribute("newsList", newsDao.getAllNews());
 		if(news.getAuthor().equals("")) {
 			return "index";
-			
 		}else {
-		
 			return "redirect:"+"/";	
 		}
 	}
@@ -83,7 +80,6 @@ public class NewsController {
 	@GetMapping("/delete")
 	public String deleteNews(int newsId, ModelMap mp) {
 		newsDao.deleteNews(newsId);
-		//mp.addAttribute("newsList", newsDao.getAllNews());
 		return "redirect:"+"/";
 	}
 
@@ -96,8 +92,8 @@ public class NewsController {
 	public String updateNews(@ModelAttribute("news") News newsObj, ModelMap mp) {
 		News newsObject = newsDao.getNewsById(newsObj.getNewsId());
 		newsDao.updateNews(newsObj);
-		//mp.addAttribute("newsList", newsDao.getAllNews());
-		return "redirect:"+"/";
+		mp.addAttribute("newsList", newsDao.getAllNews());
+		return "index";
 	}
 
 
